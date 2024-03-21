@@ -1,7 +1,11 @@
+"use client"
+import { useSession } from "next-auth/react";
 import Image from "next/image";
 import Link from "next/link";
 
 export default function(){
+    const {data:session}=useSession();
+    console.log(session)
     return (
         <div className="h-[50px] w-full flex flex-row gap-2">
             <Link href="/" className="h-full mr-auto">
@@ -16,12 +20,31 @@ export default function(){
                     />
                 </div>
             </Link>
-            <Link href="/api/auth/signin" className="h-full m-2 radius-2 hover:bg-[lightblue]">
-                Sign in
-            </Link>
-            <Link href="/api/auth/signup" className="h-full m-2">
-                Create account
-            </Link>
+            {
+                session?
+                <Link 
+                    href="/api/auth/signout" 
+                    className="h-full m-2 radius-2 hover:bg-[lightblue]"
+                    prefetch={true}
+                >
+                    Sign out
+                </Link>:<Link 
+                    href="/api/auth/signin" 
+                    className="h-full m-2 radius-2 hover:bg-[lightblue]"
+                    prefetch={true}
+                >
+                    Sign in
+                </Link>
+            }
+            {
+                !session && <Link 
+                    href="/api/auth/signup" 
+                    className="h-full m-2"
+                    prefetch={true}
+                >
+                    Create account
+                </Link>
+            }
         </div>
     )
 }
