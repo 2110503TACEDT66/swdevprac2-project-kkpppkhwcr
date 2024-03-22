@@ -3,6 +3,7 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 import TopMenu from "@/components/TopMenu";
 import ClientSessionProvider from "@/providers/ClientSessionProvider";
+import {ThemeProvider} from "next-themes"
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -17,11 +18,13 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
       <body className={inter.className}>
         <ClientSessionProvider>
-          <TopMenu/>
-          {children}
+          <ThemeProvider enableSystem={false}>
+            <TopMenu/>
+            {children}
+          </ThemeProvider>
         </ClientSessionProvider>
       </body>
     </html>
