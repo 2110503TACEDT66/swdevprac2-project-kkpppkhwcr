@@ -3,7 +3,7 @@ import { useSession } from "next-auth/react";
 import Image from "next/image";
 import Link from "next/link";
 import { Button, Menu, MenuItem } from '@mui/material';
-import { useRef, useState } from "react";
+import { MouseEventHandler, useRef, useState } from "react";
 import { useTheme } from "next-themes"
 
 export default function(){
@@ -17,8 +17,8 @@ export default function(){
     function handleClose(){
         setAnchorEl(null);
     }
-    function themeOnClick(theme:string){
-        return function(e: React.MouseEvent<HTMLButtonElement>){
+    function themeOnClick(theme:string):MouseEventHandler<HTMLLIElement>{
+        return function(e: React.MouseEvent<HTMLLIElement>){
             setTheme(theme);
             handleClose()
             console.log(theme)
@@ -76,7 +76,7 @@ export default function(){
                 onClose={handleClose}
             >
                 <MenuItem onClick={themeOnClick("light")}>Light</MenuItem>
-                <MenuItem onClick={themeOnClick("black")}>Black</MenuItem>
+                <MenuItem onClick={themeOnClick("dark")}>Dark</MenuItem>
             </Menu>
         </div>
     )

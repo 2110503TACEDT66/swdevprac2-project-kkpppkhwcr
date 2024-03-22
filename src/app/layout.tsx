@@ -21,7 +21,7 @@ export default function RootLayout({
     <html lang="en" suppressHydrationWarning>
       <body className={inter.className}>
         <ClientSessionProvider>
-          <ThemeProvider enableSystem={false}>
+          <ThemeProvider>
             <TopMenu/>
             {children}
           </ThemeProvider>
