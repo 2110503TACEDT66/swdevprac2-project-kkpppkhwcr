@@ -14,3 +14,32 @@ export interface Session{
     user: User,
     token: string
 }
+
+export interface Restaurant{
+    name: string,
+    address: string,
+    menu: string,
+    openningHours: string,
+    closingHours: string,
+    availableReservationPeriod:{
+        startTime:string,
+        endTime:string
+    },
+    tags: string[],
+    id: string
+}
+
+export interface restaurantsResponse{
+    success:boolean,
+    count:number,
+    pagination:{
+        limit:number,
+        next:{
+            page:number
+        },
+        prev:{
+            page:number
+        }
+    },
+    data: Restaurant[]
+}

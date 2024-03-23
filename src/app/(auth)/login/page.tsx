@@ -63,7 +63,7 @@ export default function(){
                             value={values.email}
                             onChange={handleChange}
                             onBlur={handleBlur}
-                            error={Boolean(errors.email)}
+                            error={ touched.email && Boolean(errors.email)}
                             helperText={errors.email}
                         />
                         <TextField 
@@ -73,7 +73,7 @@ export default function(){
                             value={values.password}
                             onChange={handleChange}
                             onBlur={handleBlur}
-                            error={Boolean(errors.password)}
+                            error={ touched.password && Boolean(errors.password)}
                             helperText={errors.password}
                         />
                         <Button 

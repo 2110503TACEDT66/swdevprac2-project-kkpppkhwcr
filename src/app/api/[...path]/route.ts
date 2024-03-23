@@ -8,7 +8,7 @@ export async function GET(req:Request,{
     }
 }){
     const backendURL = new URL("api/v1/"+params.path.join("/"),process.env.NEXT_PUBLIC_BACKEND_URL)
-    // console.log(req.headers.)
+    // console.log(backendURL)
     const res = await fetch(backendURL.href,{
         headers:req.headers as any
     })
