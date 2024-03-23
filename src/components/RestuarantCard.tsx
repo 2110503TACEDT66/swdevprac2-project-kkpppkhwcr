@@ -26,8 +26,10 @@ export default function({
             <Link href={`/restaurants/${restaurant.id}`}>
                 {
                     !imageLoaded &&
-                    <Skeleton className="w-full rounded-2xl aspect-square">
-                    </Skeleton>
+                    <div className="w-full rounded-2xl overflow-hidden aspect-square">
+                        <Skeleton className="w-full rounded-2xl aspect-square">
+                        </Skeleton>
+                    </div>
                 }
                 <Image
                     alt={restaurant.name}
