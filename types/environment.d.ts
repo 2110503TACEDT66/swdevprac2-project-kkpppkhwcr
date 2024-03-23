@@ -1,10 +1,9 @@
-// declare global {
-//     namespace NodeJS {
-//         interface ProcessEnv {
-//             SUPABASE_URL:string,
-//             SUPABASE_ANON_KEY: string
-//         }
-//     }
-// }
+declare global {
+    namespace NodeJS {
+        interface ProcessEnv {
+            NEXT_PUBLIC_BACKEND_URL:string
+        }
+    }
+}
 
-// export {}
+export {}

@@ -1,13 +1,15 @@
 "use client"
-import { useSession } from "next-auth/react";
 import Image from "next/image";
 import Link from "next/link";
 import { Button, Menu, MenuItem } from '@mui/material';
-import { MouseEventHandler, useRef, useState } from "react";
+import { MouseEventHandler, useEffect, useRef, useState } from "react";
 import { useTheme } from "next-themes"
+import useSession from "@/hooks/useSession";
 
 export default function(){
-    const {data:session}=useSession();
+    const session = useSession();
+    console.log(session)
+    // const {data:session}=useSession();
     const [anchorEl,setAnchorEl] = useState<HTMLButtonElement|null>(null);
     const {theme, setTheme} = useTheme();
     // console.log(session)
@@ -41,13 +43,15 @@ export default function(){
             {
                 session?
                 <Link 
-                    href="/api/auth/signout" 
+                    // href="/api/auth/signout" 
+                    href="/signout"
                     className="h-full m-2 radius-2 hover:bg-[lightblue]"
                     prefetch={true}
                 >
                     <Button className="h-full w-full text-inherit">Sign out</Button>
                 </Link>:<Link 
-                    href="/api/auth/signin" 
+                    // href="/api/auth/signin" 
+                    href="/login"
                     className="h-full m-2 radius-2 hover:bg-[lightblue]"
                     prefetch={true}
                 >
@@ -56,7 +60,8 @@ export default function(){
             }
             {
                 !session && <Link 
-                    href="/api/auth/signup" 
+                    // href="/api/auth/signup" 
+                    href="/register"
                     className="h-full m-2"
                     prefetch={true}
                 >
@@ -80,4 +85,9 @@ export default function(){
             </Menu>
         </div>
     )
+    // return (
+    //     <div>
+    //         gg
+    //     </div>
+    // )
 }
