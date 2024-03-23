@@ -1,6 +1,6 @@
 "use client"
-// import { supabase } from "@/app/supabase/supabase";
-import { Button, TextField } from "@mui/material";
+import useSession from "@/hooks/useSession";
+import { Button, createTheme, TextField } from "@mui/material";
 import { Auth } from "@supabase/auth-ui-react";
 import { Formik } from "formik";
 import { useEffect } from "react";
@@ -18,9 +18,10 @@ const validationSchema = yup.object({
   });
 
 export default function(){
+    const {session, updateSession} = useSession();
     return (
       <main>
-        <div className="h-full flex items-center justify-center">
+        <div className="absolute h-full w-full flex items-center justify-center">
             <Formik
                 initialValues={{
                     email:"",
@@ -34,12 +35,14 @@ export default function(){
                         method:"POST",
                         body: JSON.stringify(values)
                     })
-                    console.log(await result.text())
+                    const token = (await result.json()).token
                     if(!result.ok){
                         setErrors({
                             email:"Wrong username or password"
                         })
                     }
+                    await updateSession(token)
+                    setSubmitting(false)
                     return;
                 }}
             >
@@ -52,34 +55,35 @@ export default function(){
                     handleSubmit,    
                     isSubmitting,    
                 }) => (
-                        <form  onSubmit={handleSubmit} className="flex flex-col gap-2 w-2/3 sm:w-1/2">
-                            <TextField 
-                                name="email" 
-                                placeholder="your email"
-                                value={values.email}
-                                onChange={handleChange}
-                                onBlur={handleBlur}
-                                error={Boolean(errors.email)}
-                                helperText={errors.email}
-                            />
-                            <TextField 
-                                name="password" 
-                                placeholder="your password"
-                                value={values.password}
-                                onChange={handleChange}
-                                onBlur={handleBlur}
-                                error={Boolean(errors.password)}
-                                helperText={errors.password}
-                            />
-                            <Button 
-                                type="submit"
-                                disabled={isSubmitting}
-                            >
-                                Sign In
-                            </Button>
-                        </form>
-                    )
-                }
+                    <form onSubmit={handleSubmit} className="rounded-lg p-2 bg-white border-solid border-2 flex flex-col gap-2 w-2/3 sm:w-1/2 text-inherit">
+                        <p className="text-black text-2xl text-center">Login</p>
+                        <TextField
+                            name="email"
+                            placeholder="your email"
+                            value={values.email}
+                            onChange={handleChange}
+                            onBlur={handleBlur}
+                            error={Boolean(errors.email)}
+                            helperText={errors.email}
+                        />
+                        <TextField 
+                            name="password" 
+                            placeholder="your password"
+                            type="password"
+                            value={values.password}
+                            onChange={handleChange}
+                            onBlur={handleBlur}
+                            error={Boolean(errors.password)}
+                            helperText={errors.password}
+                        />
+                        <Button 
+                            type="submit"
+                            disabled={isSubmitting}
+                        >
+                            Sign In
+                        </Button>
+                    </form>
+                )}
             </Formik>
         </div>
         </main>

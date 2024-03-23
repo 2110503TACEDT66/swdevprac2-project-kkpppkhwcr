@@ -7,8 +7,7 @@ import { useTheme } from "next-themes"
 import useSession from "@/hooks/useSession";
 
 export default function(){
-    const session = useSession();
-    console.log(session)
+    const {session} = useSession();
     // const {data:session}=useSession();
     const [anchorEl,setAnchorEl] = useState<HTMLButtonElement|null>(null);
     const {theme, setTheme} = useTheme();
@@ -27,7 +26,7 @@ export default function(){
         }
     }
     return (
-        <div className="h-[50px] w-full flex flex-row gap-2 items-center">
+        <div className="h-[50px] w-full flex flex-row gap-2 items-center bg-black text-white dark:bg-white dark:text-black">
             <Link href="/" className="h-full mr-auto">
                 <div className="h-full">
                     <Image
@@ -44,7 +43,7 @@ export default function(){
                 session?
                 <Link 
                     // href="/api/auth/signout" 
-                    href="/signout"
+                    href="/logout"
                     className="h-full m-2 radius-2 hover:bg-[lightblue]"
                     prefetch={true}
                 >
@@ -85,9 +84,4 @@ export default function(){
             </Menu>
         </div>
     )
-    // return (
-    //     <div>
-    //         gg
-    //     </div>
-    // )
 }

@@ -11,7 +11,6 @@ export default async function({
 }){
     const cookieStore = cookies()
     const token = cookieStore.get('token')?.value
-    // console.log(token)
 
     let user: User|undefined = undefined;
 
@@ -34,7 +33,7 @@ export default async function({
     }
 
     return (
-        <Context session={session}>
+        <Context initialSession={session}>
             {children}
         </Context>
     )

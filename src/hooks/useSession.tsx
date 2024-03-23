@@ -1,6 +1,6 @@
 
 import { context } from "@/providers/Context";
-import { useContext } from "react";
+import { useContext, useState } from "react";
 
 export default ()=>{
     return useContext(context)

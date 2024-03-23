@@ -89,7 +89,7 @@ export default function(){
                                 type="submit"
                                 disabled={isSubmitting}
                             >
-                                Sign In
+                                Sign Up
                             </Button>
                         </form>
                     )

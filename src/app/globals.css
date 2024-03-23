@@ -28,7 +28,7 @@
     rgb(var(--background-start-rgb));
 } */
 
-[data-theme='dark'] {
+[color-scheme='dark'] {
   --background: black;
   --foreground: white;
 }
