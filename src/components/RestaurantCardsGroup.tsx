@@ -1,25 +1,36 @@
-import restaurants from "@/mock/Restaurant"
+"use client"
+import { useEffect, useState } from "react"
 import { Restaurant, RestaurantsResponse } from "../../interface"
 import RestaurantCard from "./RestaurantCard"
 
-export default async function({
+export default function({
     index,
     restaurants,
-    tag
+    tag,
+    currentIndex
 }:{
     index: number,
     restaurants?: Restaurant[],
-    tag: string
+    tag: string,
+    currentIndex: number
 }){
-    if(restaurants==undefined){
-        let restaurantsResponse: RestaurantsResponse = await fetch(process.env.NEXT_PUBLIC_BACKEND_URL+`/api/v1/restaurants/?tag=${tag}&page=${index}`)
-        .then((res)=>res.json())
-        restaurants=restaurantsResponse.data
+    const [restaurantsState,setRestaurantsState] = useState(restaurants);
+    async function fetchRestaurants(){
+        if(restaurants==undefined && Math.abs(currentIndex-index)<=1){
+            // let restaurantsResponse: RestaurantsResponse = await fetch(`/api/restaurants/?tag=${tag}&page=${index}`)
+            let restaurantsResponse: RestaurantsResponse = await fetch(`/api/restaurants/?page=${index+1}`)
+            .then((res)=>res.json())
+            setRestaurantsState(restaurantsResponse.data)
+        }
     }
+    useEffect(()=>{
+        fetchRestaurants();
+    },[currentIndex])
+    
     return (
         <div className="flex justify-evenly align-center gap-3">
             {
-                restaurants.map((restaurant)=>{
+                restaurantsState?.map((restaurant)=>{
                     return (
                         <RestaurantCard key={restaurant.id} restaurant={restaurant}></RestaurantCard>
                     )

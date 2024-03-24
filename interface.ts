@@ -34,6 +34,7 @@ export interface RestaurantsResponse{
     count:number,
     pagination:{
         limit:number,
+        total:number,
         next:{
             page:number
         },

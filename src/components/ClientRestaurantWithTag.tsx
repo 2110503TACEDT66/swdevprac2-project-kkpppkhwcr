@@ -13,17 +13,21 @@ export default function({
     tag: string
 }){
     const [carouselIndex, setCarouselIndex] = useState(0);
+    const totalPage= Math.ceil(restaurants.pagination.total/3);
     useEffect(()=>{
         console.log(carouselIndex)
     },[carouselIndex])
+    console.log(restaurants)
     return (
         <Carousel 
-            className="w-full" 
+            className="w-full h-fit" 
             autoPlay={false} 
             index={carouselIndex}
             onChange={(newIndex,prevIndex)=>{
                 if (newIndex) setCarouselIndex(newIndex)
             }}
+            animation="slide"
+            navButtonsAlwaysVisible={true}
         >
                 {/* <RestuarantCard 
                     className="w-1/4"
@@ -31,8 +35,7 @@ export default function({
                     restaurantName="เจ๊ไก่"
                 ></RestuarantCard> */}
                 {
-                    Array.from(Array(restaurants.count/3).keys()).map((index)=>{
-                        console.log("index",index)
+                    Array.from(Array(totalPage).keys()).map((index)=>{
                         return (
                             // <RestuarantCard key={restaurant.id} restaurant={restaurant}></RestuarantCard>
                             <RestaurantCardsGroup 
@@ -40,6 +43,7 @@ export default function({
                                 index={index} 
                                 restaurants={index==0?restaurants.data:undefined}
                                 tag={tag}
+                                currentIndex={carouselIndex}
                             ></RestaurantCardsGroup>
                         )
                     })
