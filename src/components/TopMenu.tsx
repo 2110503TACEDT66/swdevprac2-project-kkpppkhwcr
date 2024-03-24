@@ -29,6 +29,10 @@ export default function(){
             console.log(theme)
         }
     }
+    console.log("theme",theme)
+    if(theme==undefined){
+        setTheme("dark")
+    }
     return (
         <div className="h-[50px] w-full flex flex-row gap-2 items-center bg-black text-white dark:bg-white dark:text-black">
             <Link href="/" className="h-full mr-auto">
@@ -93,10 +97,14 @@ export default function(){
                 width={0}
                 height={0}
                 sizes={"100vw"}
-                className={`w-[35px] h-[35px] mr-2 aspect-square rounded-full ${theme=="dark"? 'invert-0': 'invert'}`}
+                className={`w-[35px] h-[35px] mr-2 aspect-square rounded-full dark:invert-0 invert`}
                 onClick={toggleDrawerOpen}
             ></Image>
-            <Drawer open={drawerOpen} onClose={toggleDrawerOpen}>
+            <Drawer 
+                
+                open={drawerOpen} 
+                onClose={toggleDrawerOpen}
+            >
                 <ListItem>My Reservation</ListItem>
             </Drawer>
         </div>

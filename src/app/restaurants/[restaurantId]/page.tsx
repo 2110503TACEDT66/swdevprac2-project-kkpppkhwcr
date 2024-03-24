@@ -55,9 +55,9 @@ export default async function({
                         href=""
                     >
                     {
-                        restaurant.availableReservationPeriod.map(({startTime,endTime})=>{
+                        restaurant.availableReservationPeriod.map(({startTime,endTime},index)=>{
                             return (
-                                <ListItemText primary={`${startTime}-${endTime}`} />
+                                <ListItemText key={index} primary={`${startTime}-${endTime}`} />
                             )
                         })
                     }
