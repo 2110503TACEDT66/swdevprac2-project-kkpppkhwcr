@@ -48,7 +48,7 @@ export default async function(){
                                     src={getRestaurantImageSrc(reservation.restaurantId)}
                                     width={10}
                                     height={10}
-                                    sizes="50vw"
+                                    sizes="25vw"
                                     // layout={'fill'}
                                     className="w-full h-full object-cover rounded-2xl"
                                 />

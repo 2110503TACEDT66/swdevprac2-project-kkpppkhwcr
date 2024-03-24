@@ -1,7 +1,7 @@
 "use client"
 import Image from "next/image";
 import Link from "next/link";
-import { Button, Drawer, ListItem, Menu, MenuItem } from '@mui/material';
+import { Button, Drawer, ListItem, Menu, MenuItem, Stack } from '@mui/material';
 import { MouseEventHandler, useEffect, useRef, useState } from "react";
 import { useTheme } from "next-themes"
 import useSession from "@/hooks/useSession";
@@ -45,15 +45,8 @@ export default function(){
                 </div>
             </Link>
             {
-                session?
+                !session &&
                 <Link 
-                    // href="/api/auth/signout" 
-                    href="/logout"
-                    className="h-full m-2 radius-2 hover:bg-[lightblue]"
-                    prefetch={true}
-                >
-                    <Button className="h-full w-full text-inherit">Sign out</Button>
-                </Link>:<Link 
                     // href="/api/auth/signin" 
                     href="/login"
                     className="h-full m-2 radius-2 hover:bg-[lightblue]"
@@ -88,6 +81,8 @@ export default function(){
                 <MenuItem onClick={themeOnClick("dark")}>Dark</MenuItem>
             </Menu>
             {/* <Button onClick={toggleDrawerOpen}>Open drawer</Button> */}
+            {
+            session && <>
             <Image
                 src="/img/default_profile.png"
                 alt="Account"
@@ -102,12 +97,22 @@ export default function(){
                 open={drawerOpen} 
                 onClose={toggleDrawerOpen}
             >
-                <Box onClick={toggleDrawerOpen}>
-                    <Link href="/reservations">
+                <Stack onClick={toggleDrawerOpen} spacing={0.2}>
+                    <Link 
+                        href="/reservations"
+                        prefetch={true}
+                    >
                         <ListItem className="hover:bg-[lightblue] hover:bg-opacity-30 transition-colors duration-500 ">My Reservation</ListItem>
                     </Link>
-                </Box>
+                    <Link 
+                        href="/logout"
+                        prefetch={true}
+                    >
+                        <ListItem className="hover:bg-[lightblue] hover:bg-opacity-30 transition-colors duration-500 ">Sign Out</ListItem>
+                    </Link>
+                </Stack>
             </Drawer>
+            </>}
         </div>
     )
 }
