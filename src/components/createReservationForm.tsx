@@ -9,21 +9,20 @@ export default function({
     token: string
 }){
     const [restaurantsList,setRestaurantsList] = useState<string[]>([]);
-    function onRestaurantNameChange(handleChange: Function){
-        return async function(e:SyntheticEvent<Element, Event>, value: string|null){
-            const restaurantsResponse = await fetch(`/api/restaurants?name[regex]=${value}&select=name`)
-            .then((res)=>{
-                return res.json()
-            })
-            const newRestaurantsList = restaurantsResponse.data.map((obj: any)=>{
-                return obj.name
-            })
-            setRestaurantsList(newRestaurantsList)
-            console.log("triggered ",restaurantsList,e,value)
-            if(e&&value){
-                handleChange(e,value)
-            }
+    async function onRestaurantNameChange(e:SyntheticEvent<Element, Event>, value: string|null){
+        if(!value || value.trim()==""){
+            return
         }
+        value = value.trim();
+        const restaurantsResponse = await fetch(`/api/restaurants?name[regex]=${value}&select=name`)
+        .then((res)=>{
+            return res.json()
+        })
+        const newRestaurantsList = restaurantsResponse.data.map((obj: any)=>{
+            return obj.name
+        })
+        setRestaurantsList(newRestaurantsList)
+        // console.log("triggered ",restaurantsList,e,value)
     }
     return (
         <div className="h-full flex items-center justify-center">
@@ -67,22 +66,23 @@ export default function({
                         <Autocomplete
                             disablePortal
                             options={restaurantsList}
+                            filterOptions={(options, state) => options}
                             // sx={{ width: 300 }}
                             renderInput={(params) => <TextField 
                                 {...params} 
                                 label="Restaurant Name" 
                                 InputProps={{
                                     ...params.InputProps,
-                                    type: 'search',
+                                    // type: 'search',
                                 }}
                             />}
                             value={values.restaurantName}
-                            onInputChange={onRestaurantNameChange(handleChange)}
-                            clearOnEscape={false}
-                            clearOnBlur={false}
+                            onInputChange={onRestaurantNameChange}
+                            onChange={handleChange}
                             freeSolo
-                            disableClearable
+                            autoSelect
                         />
+
                         <Button 
                             type="submit"
                             disabled={isSubmitting}
