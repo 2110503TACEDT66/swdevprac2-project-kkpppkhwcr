@@ -41,7 +41,7 @@ export default function({
                     onError={() => {
                         setImgSrc(`/img/pure_logo.jpg`);
                     }}
-                    onLoadingComplete={()=>{
+                    onLoad={()=>{
                         setImageLoaded(true);
                     }}
                 ></Image>

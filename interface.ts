@@ -29,7 +29,7 @@ export interface Restaurant{
     id: string
 }
 
-export interface restaurantsResponse{
+export interface RestaurantsResponse{
     success:boolean,
     count:number,
     pagination:{
