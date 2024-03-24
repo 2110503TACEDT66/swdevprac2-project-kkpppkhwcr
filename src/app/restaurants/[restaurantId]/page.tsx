@@ -26,7 +26,7 @@ export default async function({
     const restaurant: Restaurant = restaurantResponse.data;
     return (
         <main className="w-full h-full flex items-center justify-center">
-            <div className="flex flex-row border-solid border-gray-400 border-2 p-2 rounded-2xl">
+            <div className="bg-white text-black flex flex-row border-solid border-gray-400 border-2 p-2 rounded-2xl">
                 <div>
                     <Image
                         alt={restaurant.name}

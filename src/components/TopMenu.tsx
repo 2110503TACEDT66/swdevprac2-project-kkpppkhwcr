@@ -1,7 +1,7 @@
 "use client"
 import Image from "next/image";
 import Link from "next/link";
-import { Button, Menu, MenuItem } from '@mui/material';
+import { Button, Drawer, ListItem, Menu, MenuItem } from '@mui/material';
 import { MouseEventHandler, useEffect, useRef, useState } from "react";
 import { useTheme } from "next-themes"
 import useSession from "@/hooks/useSession";
@@ -11,7 +11,11 @@ export default function(){
     // const {data:session}=useSession();
     const [anchorEl,setAnchorEl] = useState<HTMLButtonElement|null>(null);
     const {theme, setTheme} = useTheme();
+    const [drawerOpen, setDrawerOpen] = useState(false);
     // console.log(session)
+    function toggleDrawerOpen(){
+        setDrawerOpen(!drawerOpen)
+    }
     function handleClick(e:React.MouseEvent<HTMLButtonElement>){
         setAnchorEl(e.currentTarget);
     }
@@ -82,6 +86,19 @@ export default function(){
                 <MenuItem onClick={themeOnClick("light")}>Light</MenuItem>
                 <MenuItem onClick={themeOnClick("dark")}>Dark</MenuItem>
             </Menu>
+            {/* <Button onClick={toggleDrawerOpen}>Open drawer</Button> */}
+            <Image
+                src="/img/default_profile.png"
+                alt="Account"
+                width={0}
+                height={0}
+                sizes={"100vw"}
+                className={`w-[35px] h-[35px] mr-2 aspect-square rounded-full ${theme=="dark"? 'invert-0': 'invert'}`}
+                onClick={toggleDrawerOpen}
+            ></Image>
+            <Drawer open={drawerOpen} onClose={toggleDrawerOpen}>
+                <ListItem>My Reservation</ListItem>
+            </Drawer>
         </div>
     )
 }
