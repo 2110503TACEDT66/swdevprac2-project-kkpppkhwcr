@@ -31,7 +31,8 @@ export default function({
         if(restaurantsGroup[currentIndex+1]==undefined){
             let oldRestaurantsGroup = Array.from(restaurantsGroup);
             // let restaurantsResponse: RestaurantsResponse = await fetch(`/api/restaurants/?tag=${tag}&page=${index}`)
-            let newRestaurantsResponse: RestaurantsResponse = await fetch(`/api/restaurants/?page=${indexToPage(currentIndex+1)}`)
+            let newRestaurantsResponse: RestaurantsResponse = await fetch(`/api/restaurants/?tag=${tag}&page=${indexToPage(currentIndex+1)}`)
+            // let newRestaurantsResponse: RestaurantsResponse = await fetch(`/api/restaurants/?page=${indexToPage(currentIndex+1)}`)
             .then((res)=>res.json())
             oldRestaurantsGroup[currentIndex+1]=newRestaurantsResponse.data;
             // console.log(newRestaurantsResponse.data)

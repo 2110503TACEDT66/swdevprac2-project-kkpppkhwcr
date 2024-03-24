@@ -80,7 +80,6 @@ export default function(){
                 <MenuItem onClick={themeOnClick("light")}>Light</MenuItem>
                 <MenuItem onClick={themeOnClick("dark")}>Dark</MenuItem>
             </Menu>
-            {/* <Button onClick={toggleDrawerOpen}>Open drawer</Button> */}
             {
             session && <>
             <Image
