@@ -25,7 +25,7 @@ export default function({
         // console.log("triggered ",restaurantsList,e,value)
     }
     return (
-        <div className="h-full flex items-center justify-center">
+        <div className="h-full flex items-center justify-center m-2">
             <Formik
             initialValues={{
                 restaurantName: "",
@@ -62,9 +62,13 @@ export default function({
                 handleSubmit,    
                 isSubmitting,    
             }) => (
-                    <form  onSubmit={handleSubmit} className="flex flex-col gap-2 w-2/3 sm:w-1/2 bg-white">
+                    <form  onSubmit={handleSubmit} className="flex flex-col gap-2 w-2/3 sm:w-1/2 bg-white rounded-2xl p-2">
                         <Autocomplete
                             disablePortal
+                            sx={{
+                                width:"75%",
+                                alignSelf:"center"
+                            }}
                             options={restaurantsList}
                             filterOptions={(options, state) => options}
                             // sx={{ width: 300 }}
