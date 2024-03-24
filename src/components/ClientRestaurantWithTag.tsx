@@ -1,23 +1,48 @@
 "use client"
 import Carousel from "react-material-ui-carousel"
-import { RestaurantsResponse } from "../../interface"
+import { Restaurant, RestaurantsResponse } from "../../interface"
 import RestuarantCard from "./RestaurantCard"
 import { useEffect, useRef, useState } from "react"
 import RestaurantCardsGroup from "./RestaurantCardsGroup"
 
 export default function({
-    restaurants,
+    restaurantsResponse,
     tag
 }:{
-    restaurants: RestaurantsResponse,
+    restaurantsResponse: RestaurantsResponse,
     tag: string
 }){
     const [carouselIndex, setCarouselIndex] = useState(0);
-    const totalPage= Math.ceil(restaurants.pagination.total/3);
+    let initialRestaurantsGroup: (Restaurant[]|undefined)[] = []
+    const totalPage= Math.ceil(restaurantsResponse.pagination.total/3);
+
+    for(let i=0;i<totalPage;i++){
+        initialRestaurantsGroup.push(undefined)
+    }
+    initialRestaurantsGroup[0]=restaurantsResponse.data
+
+    const [restaurantsGroup, setRestaurantsGroup] = useState(initialRestaurantsGroup)
+
+    function indexToPage(index:number){
+        return index+1
+    }
+    
+    async function fetchRestaurants(currentIndex: number){
+        if(restaurantsGroup[currentIndex+1]==undefined){
+            let oldRestaurantsGroup = Array.from(restaurantsGroup);
+            // let restaurantsResponse: RestaurantsResponse = await fetch(`/api/restaurants/?tag=${tag}&page=${index}`)
+            let newRestaurantsResponse: RestaurantsResponse = await fetch(`/api/restaurants/?page=${indexToPage(currentIndex+1)}`)
+            .then((res)=>res.json())
+            oldRestaurantsGroup[currentIndex+1]=newRestaurantsResponse.data;
+            // console.log(newRestaurantsResponse.data)
+            setRestaurantsGroup(oldRestaurantsGroup)
+        }
+    }
+
     useEffect(()=>{
-        console.log(carouselIndex)
-    },[carouselIndex])
-    console.log(restaurants)
+        fetchRestaurants(0)
+    },[])
+
     return (
         <Carousel 
             className="w-full h-fit" 
@@ -25,6 +50,7 @@ export default function({
             index={carouselIndex}
             onChange={(newIndex,prevIndex)=>{
                 if (newIndex) setCarouselIndex(newIndex)
+                fetchRestaurants(newIndex!)
             }}
             animation="slide"
             navButtonsAlwaysVisible={true}
@@ -39,9 +65,9 @@ export default function({
                         return (
                             // <RestuarantCard key={restaurant.id} restaurant={restaurant}></RestuarantCard>
                             <RestaurantCardsGroup 
-                                key={index} 
-                                index={index} 
-                                restaurants={index==0?restaurants.data:undefined}
+                                key={index}
+                                index={index}
+                                restaurants={restaurantsGroup[index]}
                                 tag={tag}
                                 currentIndex={carouselIndex}
                             ></RestaurantCardsGroup>
