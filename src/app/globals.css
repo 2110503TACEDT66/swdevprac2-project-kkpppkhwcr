@@ -28,6 +28,16 @@
     rgb(var(--background-start-rgb));
 } */
 
+html,body{
+  width:100%;
+  height:100%;
+}
+
+body{
+  display: flex;
+  flex-direction: column;
+}
+
 [color-scheme='dark'] {
   --background: black;
   --foreground: white;

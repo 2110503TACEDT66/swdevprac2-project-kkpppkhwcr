@@ -18,18 +18,18 @@ export interface Session{
 export interface Restaurant{
     name: string,
     address: string,
-    menu: string,
-    openningHours: string,
+    menu: string[],
+    openingHours: string,
     closingHours: string,
-    availableReservationPeriod:{
+    availableReservationPeriod:[{
         startTime:string,
         endTime:string
-    },
+    }],
     tags: string[],
     id: string
 }
 
-export interface RestaurantsResponse{
+interface BaseRestaurantResponse{
     success:boolean,
     count:number,
     pagination:{
@@ -42,5 +42,12 @@ export interface RestaurantsResponse{
             page:number
         }
     },
+}
+
+export interface RestaurantsResponse extends BaseRestaurantResponse{
     data: Restaurant[]
+}
+
+export interface RestaurantResponse extends BaseRestaurantResponse{
+    data: Restaurant
 }

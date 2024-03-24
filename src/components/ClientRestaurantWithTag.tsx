@@ -41,11 +41,12 @@ export default function({
 
     useEffect(()=>{
         fetchRestaurants(0)
+        
     },[])
 
     return (
         <Carousel 
-            className="w-full h-fit" 
+            className="w-full h-full" 
             autoPlay={false} 
             index={carouselIndex}
             onChange={(newIndex,prevIndex)=>{
@@ -54,11 +55,11 @@ export default function({
             }}
             animation="slide"
             navButtonsAlwaysVisible={true}
+            // swipe={false}
         >
                 {/* <RestuarantCard 
                     className="w-1/4"
-                    restaurantId="65e2f0e726b5d784a4f23e7e"
-                    restaurantName="เจ๊ไก่"
+                    restaurant={restaurantsResponse.data[0]}
                 ></RestuarantCard> */}
                 {
                     Array.from(Array(totalPage).keys()).map((index)=>{

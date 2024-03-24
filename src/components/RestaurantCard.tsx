@@ -26,8 +26,14 @@ export default function({
             <Link href={`/restaurants/${restaurant.id}`}>
                 {
                     !imageLoaded &&
-                    <div className="w-full rounded-2xl overflow-hidden aspect-square">
-                        <Skeleton className="w-full rounded-2xl aspect-square">
+                    <div className="w-full">
+                        <div className="w-full rounded-2xl overflow-hidden aspect-square">
+                            <Skeleton className="w-full rounded-2xl aspect-square">
+                            </Skeleton>
+                        </div>
+                        <Skeleton className="w-full h-5">
+                        </Skeleton>
+                        <Skeleton className="w-full h-5">
                         </Skeleton>
                     </div>
                 }
@@ -45,7 +51,8 @@ export default function({
                         setImageLoaded(true);
                     }}
                 ></Image>
-                <p className="text-center">{restaurant.name}</p>
+                <p className={`text-center ${imageLoaded? '':'hidden'}`}>{restaurant.name}</p>
+                <p className={`bg-gray-300 rounded-2xl relative bottom-0 w-fit p-1 px-2 ${imageLoaded? '':'hidden'}`}>{restaurant.openingHours}-{restaurant.closingHours}</p>
             </Link>
         </div>
     )
