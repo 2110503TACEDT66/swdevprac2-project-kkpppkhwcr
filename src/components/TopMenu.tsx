@@ -5,6 +5,7 @@ import { Button, Drawer, ListItem, Menu, MenuItem } from '@mui/material';
 import { MouseEventHandler, useEffect, useRef, useState } from "react";
 import { useTheme } from "next-themes"
 import useSession from "@/hooks/useSession";
+import { Box } from "@mui/system";
 
 export default function(){
     const {session} = useSession();
@@ -29,13 +30,9 @@ export default function(){
             console.log(theme)
         }
     }
-    console.log("theme",theme)
-    if(theme==undefined){
-        setTheme("dark")
-    }
     return (
-        <div className="h-[50px] w-full flex flex-row gap-2 items-center bg-black text-white dark:bg-white dark:text-black">
-            <Link href="/" className="h-full mr-auto">
+        <div className="h-[50px] w-full flex flex-row md:gap-2 sm:gap-0 items-center bg-black text-white dark:bg-white dark:text-black">
+            <Link href="/" className="shrink-0 h-full mr-auto">
                 <div className="h-full">
                     <Image
                         alt="Bing Resy"
@@ -100,12 +97,16 @@ export default function(){
                 className={`w-[35px] h-[35px] mr-2 aspect-square rounded-full dark:invert-0 invert`}
                 onClick={toggleDrawerOpen}
             ></Image>
-            <Drawer 
-                
+            <Drawer
+                anchor="right"
                 open={drawerOpen} 
                 onClose={toggleDrawerOpen}
             >
-                <ListItem>My Reservation</ListItem>
+                <Box onClick={toggleDrawerOpen}>
+                    <Link href="/reservations">
+                        <ListItem className="hover:bg-[lightblue] hover:bg-opacity-30 transition-colors duration-500 ">My Reservation</ListItem>
+                    </Link>
+                </Box>
             </Drawer>
         </div>
     )

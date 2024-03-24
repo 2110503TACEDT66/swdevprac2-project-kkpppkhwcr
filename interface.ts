@@ -51,3 +51,20 @@ export interface RestaurantsResponse extends BaseRestaurantResponse{
 export interface RestaurantResponse extends BaseRestaurantResponse{
     data: Restaurant
 }
+
+export interface Reservation{
+    reservorId: string,
+    restaurantId: string,
+    reservationDate: string,
+    reservationPeriod: {
+        startTime: string,
+        endTime: string
+    },
+    _id: string,
+    restaurant?: Restaurant
+}
+
+export interface ReservationsResponse{
+    success: boolean,
+    data:Reservation[]
+}

@@ -22,7 +22,7 @@ export default function({
     //     console.log("change to true")
     // })
     return (
-        <div className={`${className} w-1/4 rounded-2xl p-2 border-solid border-2 border-grey`}>
+        <div className={`${className} w-1/4 rounded-2xl p-2 border-solid border-2 border-grey text-black bg-white`}>
             <Link href={`/restaurants/${restaurant.id}`}>
                 {
                     !imageLoaded &&

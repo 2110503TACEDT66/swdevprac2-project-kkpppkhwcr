@@ -5,6 +5,9 @@ import { notFound } from "next/navigation"
 import Image from "next/image"
 import { useRouter } from "next/router"
 import { ListItemButton,ListItemText, Typography  } from "@mui/material"
+import relativeToAbsolute from "@/utils/relativeToAbsolute"
+import getRestaurant from "@/utils/getRestaurant"
+import RestaurantImage from "@/components/RestaurantImage"
 
 export default async function({
     params
@@ -13,7 +16,7 @@ export default async function({
         restaurantId: string
     }
 }){
-    const restaurantResponse: RestaurantResponse = await fetch(process.env.NEXT_PUBLIC_BACKEND_URL+"/api/v1/restaurants/"+params.restaurantId)
+    const restaurantResponse: RestaurantResponse = await getRestaurant(params.restaurantId)
     .then((res)=>{
         if(!res.ok){
             notFound()
@@ -28,20 +31,14 @@ export default async function({
         <main className="w-full h-full flex items-center justify-center">
             <div className="bg-white text-black flex flex-row border-solid border-gray-400 border-2 p-2 rounded-2xl">
                 <div>
-                    <Image
+                    <RestaurantImage
                         alt={restaurant.name}
                         src={`/api/restaurants/${params.restaurantId}/image`}
                         width={400}
                         height={400}
                         sizes={"100vw"}
                         className={`rounded-2xl aspect-square object-cover`}
-                        // onError={() => {
-                        //     setImgSrc(`/img/pure_logo.jpg`);
-                        // }}
-                        // onLoad={()=>{
-                        //     setImageLoaded(true);
-                        // }}
-                    ></Image>
+                    ></RestaurantImage>
                 </div>
                 <div className="self-center m-2 flex flex-col gap-2">
                     <Typography variant="h2">{restaurant.name}</Typography>
