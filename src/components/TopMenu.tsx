@@ -99,7 +99,7 @@ export default function(){
                 <Stack onClick={toggleDrawerOpen} spacing={0.2}>
                     <Link 
                         href="/reservations"
-                        prefetch={true}
+                        prefetch={false}
                     >
                         <ListItem className="hover:bg-[lightblue] hover:bg-opacity-30 transition-colors duration-500 ">My Reservation</ListItem>
                     </Link>

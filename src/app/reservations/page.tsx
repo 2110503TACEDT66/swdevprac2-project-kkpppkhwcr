@@ -7,7 +7,7 @@ import useServerSession from "@/hooks/useServerSession";
 import getReservations from "@/utils/getReservations";
 import getRestaurant from "@/utils/getRestaurant";
 import getRestaurantImageSrc from "@/utils/getRestaurantImageSrc";
-import { Typography } from "@mui/material";
+import { Button, Typography } from "@mui/material";
 import RestaurantImage from "@/components/RestaurantImage";
 import Link from "next/link";
 import getRestaurantUrl from "@/utils/getRestaurantUrl";
@@ -35,7 +35,6 @@ export default async function(){
         const restaurant = restaurantResponse.data
         reservation.restaurant=restaurant
     }
-    
 
     return (
         <div className="flex items-center justify-center text-black m-2">
@@ -76,6 +75,12 @@ export default async function(){
                         </div>
                     )
                 })
+                }
+                {
+                reservations.length<3 && 
+                <Link href="/reservations/create" className="bg-white hover:bg-[lightblue] text-black hover:text-black p-2 rounded-2xl">
+                    reserve now! 
+                </Link>
                 }
             </div>
         </div>
