@@ -56,11 +56,11 @@ export default async function(){
                             </Link>
                             <div className="">
                                 <Typography>Restaurant: {reservation.restaurant?.name}</Typography>
-                                <Typography>Reservation Date: {new Date(reservation.reservationDate).toLocaleDateString("en-UK")}</Typography>
+                                <Typography>Reservation Date: {new Date(Date.parse(reservation.reservationDate)).toLocaleDateString("en-UK")}</Typography>
                                 <Typography>Reservation Time: {reservation.reservationPeriod.startTime}-{reservation.reservationPeriod.endTime}</Typography>
                                 {
                                     isAdmin && 
-                                    <Typography>By: {reservation.reservorId}</Typography>
+                                    <Typography>By: {reservation.reservorId==session.user._id? "you":reservation.reservorId}</Typography>
                                 }
                             </div>
                             <div className="flex flex-col self-stretch justify-between">

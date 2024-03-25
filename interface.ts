@@ -7,7 +7,8 @@ export interface User{
     email:string,
     role:string,
     joinedAt:string,
-    phone:string[]
+    phone:string[],
+    _id:string
 }
 
 export interface Session{
