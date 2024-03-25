@@ -2,10 +2,9 @@
 import Image from "next/image";
 import Link from "next/link";
 import { Button, Drawer, ListItem, Menu, MenuItem, Stack } from '@mui/material';
-import { MouseEventHandler, useEffect, useRef, useState } from "react";
+import { MouseEventHandler, useState } from "react";
 import { useTheme } from "next-themes"
 import useSession from "@/hooks/useSession";
-import { Box } from "@mui/system";
 
 export default function(){
     const {session} = useSession();

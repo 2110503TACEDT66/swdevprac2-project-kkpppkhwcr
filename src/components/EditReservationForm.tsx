@@ -2,7 +2,7 @@
 import { Dayjs } from "dayjs"
 import { useFormik } from "formik"
 import { SyntheticEvent, useState } from "react";
-import { Period, Restaurant, RestaurantResponse, RestaurantsResponse } from "../../interface";
+import { Period, Restaurant, RestaurantsResponse } from "../../interface";
 import { Dialog, DialogTitle, DialogContent, DialogContentText, DialogActions, Button, Autocomplete, TextField } from "@mui/material";
 import { LocalizationProvider, DatePicker } from "@mui/x-date-pickers";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";

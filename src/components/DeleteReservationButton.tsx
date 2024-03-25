@@ -3,7 +3,6 @@ import { Dialog, DialogTitle, DialogContent, DialogContentText, DialogActions, B
 import DeleteIcon from '@mui/icons-material/Delete';
 import { useState } from "react";
 import deleteReservation from "@/utils/deleteReservation";
-import Router from "next/router";
 import { useRouter } from "next/navigation";
 
 export default function({

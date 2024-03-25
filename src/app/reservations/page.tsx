@@ -1,18 +1,15 @@
-import useSession from "@/hooks/useSession";
-import { useEffect, useState } from "react";
-import { Reservation, ReservationsResponse, RestaurantResponse } from "../../../interface";
-import Image from "next/image"
-import { notFound, redirect } from "next/navigation";
+import DeleteReservationButton from "@/components/DeleteReservationButton";
+import RestaurantImage from "@/components/RestaurantImage";
 import useServerSession from "@/hooks/useServerSession";
 import getReservations from "@/utils/getReservations";
 import getRestaurant from "@/utils/getRestaurant";
 import getRestaurantImageSrc from "@/utils/getRestaurantImageSrc";
-import { Button, Typography } from "@mui/material";
-import RestaurantImage from "@/components/RestaurantImage";
-import Link from "next/link";
 import getRestaurantUrl from "@/utils/getRestaurantUrl";
 import ModeEditIcon from '@mui/icons-material/ModeEdit';
-import DeleteReservationButton from "@/components/DeleteReservationButton";
+import { Typography } from "@mui/material";
+import Link from "next/link";
+import { notFound, redirect } from "next/navigation";
+import { ReservationsResponse, RestaurantResponse } from "../../../interface";
 
 export default async function(){
     const session = await useServerSession();

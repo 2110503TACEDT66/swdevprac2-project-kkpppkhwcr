@@ -1,6 +1,6 @@
 "use client"
-import { createContext, Dispatch, SetStateAction, useReducer, useState } from "react";
-import { Session, User } from "../../interface";
+import { createContext, useState } from "react";
+import { Session } from "../../interface";
 export const context = createContext<{
     session:Session|undefined,
     updateSession: ((newToken: string) => Promise<void>),

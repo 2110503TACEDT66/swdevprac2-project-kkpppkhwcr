@@ -1,8 +1,7 @@
 "use client"
 import Carousel from "react-material-ui-carousel"
 import { Restaurant, RestaurantsResponse } from "../../interface"
-import RestuarantCard from "./RestaurantCard"
-import { useEffect, useRef, useState } from "react"
+import { useEffect, useState } from "react"
 import RestaurantCardsGroup from "./RestaurantCardsGroup"
 
 export default function({

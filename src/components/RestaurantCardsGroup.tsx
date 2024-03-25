@@ -1,6 +1,5 @@
 "use client"
-import { useEffect, useState } from "react"
-import { Restaurant, RestaurantsResponse } from "../../interface"
+import { Restaurant } from "../../interface"
 import RestaurantCard from "./RestaurantCard"
 
 export default function({

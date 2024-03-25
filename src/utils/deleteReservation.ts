@@ -1,4 +1,3 @@
-"use client"
 export default async function(token:string,reservationId:string){
     return await fetch(`/api/reservations/${reservationId}`,{
         method:"DELETE",

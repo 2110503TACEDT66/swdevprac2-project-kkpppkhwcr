@@ -1,11 +1,8 @@
 "use server"
 
-import { Restaurant, RestaurantResponse, RestaurantsResponse } from "@/../interface"
+import { Restaurant, RestaurantResponse } from "@/../interface"
 import { notFound } from "next/navigation"
-import Image from "next/image"
-import { useRouter } from "next/router"
 import { ListItemButton,ListItemText, Typography  } from "@mui/material"
-import relativeToAbsolute from "@/utils/relativeToAbsolute"
 import getRestaurant from "@/utils/getRestaurant"
 import RestaurantImage from "@/components/RestaurantImage"
 

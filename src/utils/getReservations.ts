@@ -1,5 +1,4 @@
 "use server"
-import { Reservation, ReservationsResponse } from "../../interface"
 import relativeToAbsolute from "./relativeToAbsolute"
 
 export default async function getReservations(token?: string): Promise<Response|null>{

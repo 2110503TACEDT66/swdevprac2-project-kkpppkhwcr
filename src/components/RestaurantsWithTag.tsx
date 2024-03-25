@@ -1,10 +1,6 @@
-import { URL } from "url";
-import RestuarantCard from "./RestaurantCard";
 import { RestaurantsResponse } from "../../interface";
-import Carousel from "react-material-ui-carousel";
 import ClientRestaurantWithTag from "./ClientRestaurantWithTag";
-import { createTheme, Typography } from "@mui/material";
-import { Inter } from "next/font/google";
+import { Typography } from "@mui/material";
 
 export default async function({
     tag

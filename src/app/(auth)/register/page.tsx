@@ -1,9 +1,7 @@
 "use client"
 // import { supabase } from "@/app/supabase/supabase";
 import { Button, TextField } from "@mui/material";
-import { Auth } from "@supabase/auth-ui-react";
 import { Formik } from "formik";
-import { useEffect } from "react";
 import * as yup from "yup";
 
 const validationSchema = yup.object({

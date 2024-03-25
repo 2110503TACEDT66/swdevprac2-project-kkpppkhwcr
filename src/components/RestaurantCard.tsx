@@ -2,7 +2,7 @@
 import Image from "next/image"
 import Link from "next/link"
 import { Restaurant } from "../../interface"
-import { useEffect, useState } from "react"
+import { useState } from "react"
 // import {Skeleton} from "@nextui-org/react";
 // import {Skeleton} from "@nextui-org/skeleton";
 import Skeleton from 'react-loading-skeleton'

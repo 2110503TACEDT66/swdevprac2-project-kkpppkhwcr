@@ -1,9 +1,7 @@
 "use client"
 import useSession from "@/hooks/useSession";
-import { Button, createTheme, TextField } from "@mui/material";
-import { Auth } from "@supabase/auth-ui-react";
+import { Button, TextField } from "@mui/material";
 import { Formik } from "formik";
-import { useEffect } from "react";
 import * as yup from "yup";
 
 const validationSchema = yup.object({
