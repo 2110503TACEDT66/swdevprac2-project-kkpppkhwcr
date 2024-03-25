@@ -11,6 +11,8 @@ import { Typography } from "@mui/material";
 import RestaurantImage from "@/components/RestaurantImage";
 import Link from "next/link";
 import getRestaurantUrl from "@/utils/getRestaurantUrl";
+import ModeEditIcon from '@mui/icons-material/ModeEdit';
+import DeleteIcon from '@mui/icons-material/Delete';
 
 export default async function(){
     const session = await useServerSession();
@@ -57,6 +59,14 @@ export default async function(){
                                 <Typography>Restaurant: {reservation.restaurant?.name}</Typography>
                                 <Typography>Reservation Date: {new Date(reservation.reservationDate).toLocaleDateString("en-UK")}</Typography>
                                 <Typography>Reservation Time: {reservation.reservationPeriod.startTime}-{reservation.reservationPeriod.endTime}</Typography>
+                            </div>
+                            <div className="flex flex-col h-full justify-between">
+                                <Link href={`/reservations/edit/${reservation._id}`}>
+                                    <ModeEditIcon></ModeEditIcon>
+                                </Link>
+                                <Link href={`/reservations/delete/${reservation._id}`}>
+                                    <DeleteIcon></DeleteIcon>
+                                </Link>
                             </div>
                         </div>
                     )
