@@ -9,6 +9,7 @@ export default async function getReservations(token?: string): Promise<Response|
     return await fetch(relativeToAbsolute("/api/v1/reservations"),{
         headers:{
             Authorization:`Bearer ${token}`
-        }
+        },
+        cache:"no-cache"
     })
 }

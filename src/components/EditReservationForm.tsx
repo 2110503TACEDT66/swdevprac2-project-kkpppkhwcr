@@ -1,7 +1,8 @@
+"use client"
 import { Dayjs } from "dayjs"
 import { useFormik } from "formik"
 import { SyntheticEvent, useState } from "react";
-import { Period, Restaurant } from "../../interface";
+import { Period, Restaurant, RestaurantResponse, RestaurantsResponse } from "../../interface";
 import { Dialog, DialogTitle, DialogContent, DialogContentText, DialogActions, Button, Autocomplete, TextField } from "@mui/material";
 import { LocalizationProvider, DatePicker } from "@mui/x-date-pickers";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
@@ -31,15 +32,26 @@ export default function ({
             reservationPeriod: ""
         },
         async onSubmit(values,{setSubmitting, setErrors}){
-            const {reservationPeriod,...rest} = formik.values
+            const {reservationPeriod,restaurantName,reservationDate} = formik.values
             const [startTime,endTime]=reservationPeriod.split("-")
+            
+            const restaurantResponse: RestaurantsResponse = await fetch(`/api/restaurants/?name=${restaurantName}`,{
+                method:"GET",
+                headers:{
+                    "Content-Type":"application/json"
+                }
+            })
+            .then(res=>res.json())
+            const restaurantId = restaurantResponse.data[0].id;
             let data = {
-                ...rest,
+                restaurantId,
+                reservationDate,
                 reservationPeriod:{
                     startTime,
                     endTime
                 }
             }
+            // console.log(restaurantResponse,data)
             const result = await fetch(`/api/reservations/${reservationId}`,{
                 method:"PUT",
                 headers:{
@@ -59,7 +71,7 @@ export default function ({
             }
             setAlertMessage({
                 title:"Success!",
-                description:"Successfully create reservation"
+                description:"Successfully edit reservation"
             })
             setIsAlerting(true);
         }
