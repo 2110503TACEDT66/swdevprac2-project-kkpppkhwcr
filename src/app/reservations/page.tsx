@@ -33,12 +33,12 @@ export default async function(){
 
     return (
         <div className="flex items-center justify-center text-black m-2">
-            <div className="flex items-center justify-center bg-white rounded-2xl gap-2">
+            <div className="flex items-center justify-center gap-2 flex-col">
                 {
                 reservations.map((reservation,index)=>{
 
                     return (
-                        <div key={index} className="flex h-20 items-center justify-center gap-3 p-2">
+                        <div key={index} className="flex h-20 items-center justify-center gap-3 p-2 rounded-2xl bg-white">
                             <Link 
                                 href={getRestaurantUrl(reservation.restaurantId)}
                                 className="h-full aspect-square"
