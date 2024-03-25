@@ -1,6 +1,7 @@
 "use client"
 import { Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, TextField } from "@mui/material";
 import { Formik, useFormik } from "formik";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
 import * as yup from "yup";
 export default function(){
@@ -13,6 +14,7 @@ export default function(){
         title:null,
         description:null
     });
+    const router = useRouter();
     const validationSchema = yup.object({
         email: yup
             .string()
@@ -53,15 +55,14 @@ export default function(){
                     title:"Error",
                     description: "Some thing is wrong, maybe username or email is already taken"
                 })
+                return;
             }
-            else{
-                setIsAlerting(true);
-                setAlertMessage({
-                    title:"Success!",
-                    description: "Successfully registered"
-                })
-            }
-            return;
+            setIsAlerting(true);
+            setAlertMessage({
+                title:"Success!",
+                description: "Successfully registered"
+            })
+            router.back();
         }
     })
 
@@ -86,6 +87,7 @@ export default function(){
                 </DialogActions>
             </Dialog>
             <form  onSubmit={formik.handleSubmit} className="flex flex-col gap-2 w-2/3 sm:w-1/2 bg-white border-solid border-gray border-2 p-2 rounded-2xl top-1/2 transform -translate-y-1/2 absolute">
+                <p className="text-black text-2xl text-center">Register</p>
                 <TextField 
                     id="username"
                     name="username"
