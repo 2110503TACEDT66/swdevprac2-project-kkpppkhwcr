@@ -21,12 +21,14 @@ export interface Restaurant{
     menu: string[],
     openingHours: string,
     closingHours: string,
-    availableReservationPeriod:[{
-        startTime:string,
-        endTime:string
-    }],
+    availableReservationPeriod:Period[],
     tags: string[],
     id: string
+}
+
+export interface Period{
+    startTime:string,
+    endTime:string
 }
 
 interface BaseRestaurantResponse{
