@@ -2,7 +2,7 @@ import useSession from "@/hooks/useSession";
 import { useEffect, useState } from "react";
 import { Reservation, ReservationsResponse, RestaurantResponse } from "../../../interface";
 import Image from "next/image"
-import { notFound } from "next/navigation";
+import { notFound, redirect } from "next/navigation";
 import useServerSession from "@/hooks/useServerSession";
 import getReservations from "@/utils/getReservations";
 import getRestaurant from "@/utils/getRestaurant";
@@ -12,10 +12,13 @@ import RestaurantImage from "@/components/RestaurantImage";
 import Link from "next/link";
 import getRestaurantUrl from "@/utils/getRestaurantUrl";
 import ModeEditIcon from '@mui/icons-material/ModeEdit';
-import DeleteIcon from '@mui/icons-material/Delete';
+import DeleteReservationButton from "@/components/DeleteReservationButton";
 
 export default async function(){
     const session = await useServerSession();
+    if(session==undefined){
+        redirect("/login")
+    }
     const reservationsResponse: ReservationsResponse = await getReservations(session?.token)
     .then((res: Response|null)=>{
         if(res==null||!res.ok){
@@ -32,6 +35,7 @@ export default async function(){
         const restaurant = restaurantResponse.data
         reservation.restaurant=restaurant
     }
+    
 
     return (
         <div className="flex items-center justify-center text-black m-2">
@@ -64,9 +68,10 @@ export default async function(){
                                 <Link href={`/reservations/edit/${reservation._id}`}>
                                     <ModeEditIcon></ModeEditIcon>
                                 </Link>
-                                <Link href={`/reservations/delete/${reservation._id}`}>
-                                    <DeleteIcon></DeleteIcon>
-                                </Link>
+                                <DeleteReservationButton
+                                    token={session.token}
+                                    reservationId={reservation._id}
+                                />
                             </div>
                         </div>
                     )
