@@ -30,9 +30,7 @@ export async function POST(req:NextRequest,{
     const requestBodyText = await req.text() ;
     const res = await fetch(backendURL.href,{
         method:"POST",
-        headers:{
-            "Content-Type":"application/json"
-        },
+        headers:req.headers as any,
         body: requestBodyText
     })
     return res;

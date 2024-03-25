@@ -22,12 +22,22 @@ export default function({
             reservationPeriod: ""
         },
         async onSubmit(values,{setSubmitting, setErrors}){
-            const result = await fetch("/api/v1/reservations",{
+            const {reservationPeriod,...rest} = formik.values
+            const [startTime,endTime]=reservationPeriod.split("-")
+            let data = {
+                ...rest,
+                reservationPeriod:{
+                    startTime,
+                    endTime
+                }
+            }
+            const result = await fetch("/api/reservations",{
                 method:"POST",
                 headers:{
+                    "Content-Type":"application/json",
                     Authorization: `Bearer ${token}`
                 },
-                body: JSON.stringify(formik.values)
+                body: JSON.stringify(data)
             })
             if(!result.ok){
                 setErrors({
@@ -96,7 +106,9 @@ export default function({
                     <DatePicker
                         label="reservation date"
                         value={formik.values.reservationDate}
-                        onChange={formik.handleChange}
+                        onChange={(value)=>{
+                            formik.setFieldValue("reservationDate",value)
+                        }}
                     ></DatePicker>
                 </LocalizationProvider>
                 <Autocomplete
