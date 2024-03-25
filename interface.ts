@@ -71,3 +71,9 @@ export interface ReservationsResponse{
     success: boolean,
     data:Reservation[]
 }
+
+export interface ResizableMultiInputEvent{
+    currentTarget:{
+        value:string|Period
+    }
+}
