@@ -1,5 +1,5 @@
 "use client"
-import { TextField, Button, Autocomplete } from "@mui/material";
+import { TextField, Button, Autocomplete, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle } from "@mui/material";
 import { Formik, useFormik } from "formik";
 import { SyntheticEvent, useEffect, useRef, useState } from "react";
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
@@ -15,6 +15,14 @@ export default function({
 }){
     const [restaurantsList,setRestaurantsList] = useState<string[]>([]);
     const [reservationPeriodsList,setReservationPeriodsList] = useState<string[]>([]);
+    const [isAlerting,setIsAlerting] = useState<boolean>(false);
+    const [alertMessages,setAlertMessage] = useState<{
+        title:string|null,
+        description: string|null
+    }>({
+        title:null,
+        description:null
+    });
     const formik = useFormik({
         initialValues:{
             restaurantName: "",
@@ -39,12 +47,20 @@ export default function({
                 },
                 body: JSON.stringify(data)
             })
-            if(!result.ok){
-                setErrors({
-                    restaurantName:"Wrong restaurant name or unavailable period"
+            const responseJson = await result.json();
+            if(!result.ok||!responseJson.success){
+                setAlertMessage({
+                    title:"Error!",
+                    description:responseJson.message||"Wrong restaurant name or unavailable period"
                 })
+                setIsAlerting(true);
+                return
             }
-            return;
+            setAlertMessage({
+                title:"Success!",
+                description:"Successfully create reservation"
+            })
+            setIsAlerting(true);
         }
     })
     async function onRestaurantNameChange(_e:SyntheticEvent<Element, Event>, value: string|null){
@@ -74,6 +90,24 @@ export default function({
     }
     return (
         <div className="h-full flex items-center justify-center m-2">
+            <Dialog
+                open={isAlerting}
+                onClose={()=>setIsAlerting(false)}
+                aria-labelledby="alert-dialog-title"
+                aria-describedby="alert-dialog-description"
+            >
+                <DialogTitle id="alert-dialog-title">
+                    {alertMessages.title}
+                </DialogTitle>
+                <DialogContent>
+                    <DialogContentText id="alert-dialog-description">
+                    {alertMessages.description}
+                    </DialogContentText>
+                </DialogContent>
+                <DialogActions>
+                <Button onClick={()=>setIsAlerting(false)}>Ok</Button>
+                </DialogActions>
+            </Dialog>
             <form  onSubmit={formik.handleSubmit} className="flex flex-col gap-2 w-2/3 sm:w-1/2 bg-white rounded-2xl p-2">
                 <Autocomplete
                     disablePortal
