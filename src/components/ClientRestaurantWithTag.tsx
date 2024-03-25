@@ -33,8 +33,8 @@ export default function({
         if(restaurantsGroup[currentIndex+1]==undefined){
             let oldRestaurantsGroup = Array.from(restaurantsGroup);
             // let restaurantsResponse: RestaurantsResponse = await fetch(`/api/restaurants/?tag=${tag}&page=${index}`)
-            // let newRestaurantsResponse: RestaurantsResponse = await fetch(`/api/restaurants/?tag=${tag}&page=${indexToPage(currentIndex+1)}`)
-            let newRestaurantsResponse: RestaurantsResponse = await fetch(`/api/restaurants/?page=${indexToPage(currentIndex+1)}`)
+            let newRestaurantsResponse: RestaurantsResponse = await fetch(`/api/restaurants/?tag=${tag}&page=${indexToPage(currentIndex+1)}`)
+            // let newRestaurantsResponse: RestaurantsResponse = await fetch(`/api/restaurants/?page=${indexToPage(currentIndex+1)}`)
             .then((res)=>res.json())
             oldRestaurantsGroup[currentIndex+1]=newRestaurantsResponse.data;
             // console.log(newRestaurantsResponse.data)
@@ -48,7 +48,7 @@ export default function({
     },[])
 
     return (
-        <div className="w-[90%] absolute left-1/2 transform -translate-x-1/2">
+        <div className="w-[90%]">
             <Slider 
                 // className="w-full h-full" 
                 // autoplay={true} 
@@ -65,7 +65,6 @@ export default function({
                 dots={true}
                 infinite={false}
                 speed= {500}
-
             >
                 {
                     Array.from(Array(totalPage).keys()).map((index)=>{
