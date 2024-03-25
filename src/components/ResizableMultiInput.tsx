@@ -18,10 +18,7 @@ export default function({
         className?:string,
         onChange: (event:ResizableMultiInputEvent)=>void,
         label:string,
-        helperText?:{
-            startTime?:string,
-            endTime?:string,
-        }
+        helperText?:any
     }>,
     helperTexts?: string[]
 }){
