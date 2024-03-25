@@ -6,6 +6,7 @@ import RestaurantCardsGroup from "./RestaurantCardsGroup"
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
+import useSession from "@/hooks/useSession"
 
 export default function({
     restaurantsResponse,
@@ -44,7 +45,6 @@ export default function({
 
     useEffect(()=>{
         fetchRestaurants(0)
-        
     },[])
 
     return (

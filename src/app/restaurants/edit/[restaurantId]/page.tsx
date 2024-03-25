@@ -14,9 +14,10 @@ export default function({
     params
 }:{
     params:{
-        restaurantId: string
+        restaurantId:string
     }
 }){
+    console.log(params)
     const {session} = useSession();
     const [isSubmitting,setIsSubmitting] = useState(false);
     const [isAlerting,setIsAlerting] = useState<boolean>(false);
@@ -44,7 +45,8 @@ export default function({
         tags:yup.array().of(
             yup.string().required(invalidTagsMessage)
         ),
-        availableReservationPeriod: yup.array().of(
+        availableReservationPeriod: yup.array()
+        .of(
             // yup.string().matches(periodRegex,invalidHourMessage)
             yup.object().shape({
                 startTime: yup.string().matches(hourRegex,invalidHourMessage),
@@ -68,8 +70,8 @@ export default function({
             // values.availableReservationPeriod=values.availableReservationPeriod.map((period)=>{
             //     return 
             // })
-            const response = await fetch("/api/restaurants/",{
-                method:"POST",
+            const response = await fetch(`/api/restaurants/${params.restaurantId}`,{
+                method:"PUT",
                 headers:{
                     "Content-Type":"application/json",
                     "Authorization":`Bearer ${session?.token}`
@@ -88,8 +90,9 @@ export default function({
             setIsAlerting(true)
             setAlertMessage({
                 title:"Success!",
-                description:"Successfully create a restaurant"
+                description:"Successfully edit a restaurant"
             })
+            setIsSubmitting(false);
         }
     })
 
@@ -114,6 +117,7 @@ export default function({
                 </DialogActions>
             </Dialog>
             <form onSubmit={formik.handleSubmit} className="bg-white p-2 flex flex-col gap-2">
+                <p className="self-center">Create Restaurant!</p>
                 <TextField
                     id="name"
                     name="name"
@@ -180,7 +184,7 @@ export default function({
                     type="submit"
                     disabled={isSubmitting}
                 >
-                    create restaurant
+                    edit restaurant
                 </Button>
             </form>
         </div>

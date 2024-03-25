@@ -10,13 +10,7 @@ import periodRegex from "@/constants/periodRegex"
 import useSession from "@/hooks/useSession"
 import { useState } from "react"
 
-export default function({
-    params
-}:{
-    params:{
-        restaurantId: string
-    }
-}){
+export default function(){
     const {session} = useSession();
     const [isSubmitting,setIsSubmitting] = useState(false);
     const [isAlerting,setIsAlerting] = useState<boolean>(false);
@@ -91,6 +85,7 @@ export default function({
                 title:"Success!",
                 description:"Successfully create a restaurant"
             })
+            setIsSubmitting(false);
         }
     })
 
@@ -115,6 +110,7 @@ export default function({
                 </DialogActions>
             </Dialog>
             <form onSubmit={formik.handleSubmit} className="bg-white p-2 flex flex-col gap-2">
+                <p className="self-center">Create Restaurant!</p>
                 <TextField
                     id="name"
                     name="name"
