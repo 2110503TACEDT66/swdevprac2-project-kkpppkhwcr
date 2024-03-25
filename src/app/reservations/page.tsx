@@ -32,15 +32,14 @@ export default async function(){
         const restaurant = restaurantResponse.data
         reservation.restaurant=restaurant
     }
-
+    const isAdmin=session.user.role=="admin";
     return (
         <div className="flex items-center justify-center text-black m-2">
             <div className="flex items-center justify-center gap-2 flex-col">
                 {
                 reservations.map((reservation,index)=>{
-
                     return (
-                        <div key={index} className="flex h-20 items-center justify-center gap-3 p-2 rounded-2xl bg-white">
+                        <div key={index} className="flex h-fit items-center justify-center gap-3 p-2 rounded-2xl bg-white">
                             <Link 
                                 href={getRestaurantUrl(reservation.restaurantId)}
                                 className="h-full aspect-square"
@@ -59,8 +58,12 @@ export default async function(){
                                 <Typography>Restaurant: {reservation.restaurant?.name}</Typography>
                                 <Typography>Reservation Date: {new Date(reservation.reservationDate).toLocaleDateString("en-UK")}</Typography>
                                 <Typography>Reservation Time: {reservation.reservationPeriod.startTime}-{reservation.reservationPeriod.endTime}</Typography>
+                                {
+                                    isAdmin && 
+                                    <Typography>By: {reservation.reservorId}</Typography>
+                                }
                             </div>
-                            <div className="flex flex-col h-full justify-between">
+                            <div className="flex flex-col self-stretch justify-between">
                                 <Link href={`/reservations/edit/${reservation._id}`}>
                                     <ModeEditIcon></ModeEditIcon>
                                 </Link>

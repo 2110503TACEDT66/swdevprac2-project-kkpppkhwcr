@@ -31,9 +31,13 @@ export default function(){
 
                     const result = await fetch("/api/auth/login",{
                         method:"POST",
+                        headers:{
+                            "Content-Type":"application/json"
+                        },
                         body: JSON.stringify(values)
                     })
                     const token = (await result.json()).token
+                    
                     if(!result.ok){
                         setErrors({
                             email:"Wrong username or password"
