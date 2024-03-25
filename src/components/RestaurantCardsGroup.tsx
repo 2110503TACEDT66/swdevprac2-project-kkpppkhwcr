@@ -14,7 +14,7 @@ export default function({
     currentIndex: number
 }){
     return (
-        <div className="flex justify-evenly align-center gap-3">
+        <div className="flex justify-evenly align-center md:gap-1 sm:gap-0">
             {
                 restaurants?.map((restaurant)=>{
                     return (

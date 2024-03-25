@@ -12,7 +12,8 @@ export default async function({
     }
     // const backendURL = new URL(`/api/v1/restaurants/`,process.env.NEXT_PUBLIC_BACKEND_URL)
     // console.log(backendURL.href)
-    const restaurants: RestaurantsResponse = await fetch(process.env.NEXT_PUBLIC_BACKEND_URL+`/api/v1/restaurants/?tags[in]=${tag}`,{
+    const restaurants: RestaurantsResponse = await fetch(process.env.NEXT_PUBLIC_BACKEND_URL+`/api/v1/restaurants/`,{
+    // const restaurants: RestaurantsResponse = await fetch(process.env.NEXT_PUBLIC_BACKEND_URL+`/api/v1/restaurants/?tags[in]=${tag}`,{
         cache:"no-cache"
     })
     .then(

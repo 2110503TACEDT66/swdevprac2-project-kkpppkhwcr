@@ -3,6 +3,9 @@ import Carousel from "react-material-ui-carousel"
 import { Restaurant, RestaurantsResponse } from "../../interface"
 import { useEffect, useState } from "react"
 import RestaurantCardsGroup from "./RestaurantCardsGroup"
+import Slider from "react-slick";
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
 
 export default function({
     restaurantsResponse,
@@ -13,7 +16,7 @@ export default function({
 }){
     const [carouselIndex, setCarouselIndex] = useState(0);
     let initialRestaurantsGroup: (Restaurant[]|undefined)[] = []
-    const totalPage= Math.ceil(restaurantsResponse.pagination.total/3);
+    const totalPage = Math.ceil(restaurantsResponse.pagination.total/3);
 
     for(let i=0;i<totalPage;i++){
         initialRestaurantsGroup.push(undefined)
@@ -30,8 +33,8 @@ export default function({
         if(restaurantsGroup[currentIndex+1]==undefined){
             let oldRestaurantsGroup = Array.from(restaurantsGroup);
             // let restaurantsResponse: RestaurantsResponse = await fetch(`/api/restaurants/?tag=${tag}&page=${index}`)
-            let newRestaurantsResponse: RestaurantsResponse = await fetch(`/api/restaurants/?tag=${tag}&page=${indexToPage(currentIndex+1)}`)
-            // let newRestaurantsResponse: RestaurantsResponse = await fetch(`/api/restaurants/?page=${indexToPage(currentIndex+1)}`)
+            // let newRestaurantsResponse: RestaurantsResponse = await fetch(`/api/restaurants/?tag=${tag}&page=${indexToPage(currentIndex+1)}`)
+            let newRestaurantsResponse: RestaurantsResponse = await fetch(`/api/restaurants/?page=${indexToPage(currentIndex+1)}`)
             .then((res)=>res.json())
             oldRestaurantsGroup[currentIndex+1]=newRestaurantsResponse.data;
             // console.log(newRestaurantsResponse.data)
@@ -45,26 +48,28 @@ export default function({
     },[])
 
     return (
-        <Carousel 
-            className="w-full h-full" 
-            autoPlay={false} 
-            index={carouselIndex}
-            onChange={(newIndex,prevIndex)=>{
-                if (newIndex) setCarouselIndex(newIndex)
-                fetchRestaurants(newIndex!)
-            }}
-            animation="slide"
-            navButtonsAlwaysVisible={true}
-            // swipe={false}
-        >
-                {/* <RestuarantCard 
-                    className="w-1/4"
-                    restaurant={restaurantsResponse.data[0]}
-                ></RestuarantCard> */}
+        <div className="w-[90%] absolute left-1/2 transform -translate-x-1/2">
+            <Slider 
+                // className="w-full h-full" 
+                // autoplay={true} 
+                // draggable={true}
+                // index={carouselIndex}
+                beforeChange={(prevIndex:number,newIndex:number)=>{
+                    if (newIndex) setCarouselIndex(newIndex)
+                    fetchRestaurants(newIndex!)
+                }}
+                // accessibility={true}
+                // arrows={true}
+                slidesToShow= {1}
+                slidesToScroll= {1}
+                dots={true}
+                infinite={false}
+                speed= {500}
+
+            >
                 {
                     Array.from(Array(totalPage).keys()).map((index)=>{
                         return (
-                            // <RestuarantCard key={restaurant.id} restaurant={restaurant}></RestuarantCard>
                             <RestaurantCardsGroup 
                                 key={index}
                                 index={index}
@@ -72,9 +77,11 @@ export default function({
                                 tag={tag}
                                 currentIndex={carouselIndex}
                             ></RestaurantCardsGroup>
+                            // <div key={index}>{index}</div>
                         )
                     })
                 }
-            </Carousel>
+            </Slider>
+        </div>
     )
 }
