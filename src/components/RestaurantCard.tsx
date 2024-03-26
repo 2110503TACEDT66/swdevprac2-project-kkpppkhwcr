@@ -10,6 +10,7 @@ import { Delete, Edit } from "@mui/icons-material"
 import { Button, IconButton, Input, InputAdornment } from "@mui/material"
 import FileUploadIcon from '@mui/icons-material/FileUpload';
 import { useRouter } from "next/navigation"
+// import { useRouter } from "next/navigation"
 
 export default function({
     restaurant,
@@ -20,7 +21,6 @@ export default function({
 }){
     const [imgSrc, setImgSrc] = useState(`/api/restaurants/${restaurant.id}/image`);
     const [imageLoaded,setImageLoaded] = useState(false);
-    const imageRef = useRef(null);
     const {session} = useSession();
     const isAdmin = session?.user.role=="admin";
 
@@ -40,10 +40,9 @@ export default function({
             body: formData
         })
         const responseJson = await response.json();
-        // if(responseJson.success){
-        //     router.refresh()
-        // }
-        imageRef.current.setSet(imgSrc)
+        if(responseJson.success){
+            window.location.reload();
+        }
     }
 
     async function deleteRestaurant(e: React.MouseEvent<HTMLButtonElement, MouseEvent>){
@@ -77,7 +76,6 @@ export default function({
                 }
                 <Image
                     alt={restaurant.name}
-                    ref={imageRef}
                     src={imgSrc}
                     width={250}
                     height={250}
@@ -108,7 +106,12 @@ export default function({
                         className="text-black absolute right-0 bottom-0"
                         onClick={deleteRestaurant}
                     >
-                        <Delete></Delete>
+                        <Delete 
+                        sx={{
+                            stroke: "white",
+                            strokeWidth: 2
+                        }}
+                        ></Delete>
                     </IconButton>
                     <div className="absolute left-0 top-0">
                         <IconButton 
@@ -118,7 +121,12 @@ export default function({
                             }}
                             component="label"
                         >
-                            <FileUploadIcon>
+                            <FileUploadIcon
+                                // sx={{
+                                //     stroke: "white",
+                                //     stroke-width: 2
+                                // }}
+                            >
                             </FileUploadIcon>
                             <input
                                 type="file"
