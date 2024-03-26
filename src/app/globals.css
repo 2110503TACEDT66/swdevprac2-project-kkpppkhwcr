@@ -2,31 +2,20 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  /* --foreground-rgb: 0, 0, 0;
-  --background-start-rgb: 214, 219, 220;
-  --background-end-rgb: 255, 255, 255; */
+.slick-prev:before,
+.slick-next:before {
+  color: var(--foreground) !important;
+}
 
+:root {
   --background: white;
   --foreground: black;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: white;
-    --foreground: black;
-  }
+.dark {
+  --background: black !important;
+  --foreground: white !important;
 }
-
-/* body {
-  color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
-} */
 
 html,body{
   width:100%;
@@ -38,10 +27,6 @@ body{
   flex-direction: column;
 }
 
-[color-scheme='dark'] {
-  --background: black;
-  --foreground: white;
-}
 
 @layer utilities {
   .text-balance {
