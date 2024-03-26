@@ -1,7 +1,7 @@
 "use client"
 import { TextField } from "@mui/material";
 import AddIcon from '@mui/icons-material/Add';
-import { ChangeEvent, ChangeEventHandler, useState } from "react";
+import { useState } from "react";
 import DeleteIcon from '@mui/icons-material/Delete';
 import removeFromArrayByIndex from "@/utils/removeFromArrayByIndex";
 import { Period, ResizableMultiInputEvent } from "../../interface";

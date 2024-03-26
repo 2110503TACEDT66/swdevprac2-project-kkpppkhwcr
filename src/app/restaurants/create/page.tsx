@@ -6,7 +6,6 @@ import ResizableMultiInput from "@/components/ResizableMultiInput"
 import TimePeriodTextField from "@/components/TimePeriodTextField"
 import * as yup from "yup"
 import hourRegex from "@/constants/hourRegex"
-import periodRegex from "@/constants/periodRegex"
 import useSession from "@/hooks/useSession"
 import { useState } from "react"
 

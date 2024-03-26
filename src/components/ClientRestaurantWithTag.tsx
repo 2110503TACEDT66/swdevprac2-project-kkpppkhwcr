@@ -1,12 +1,10 @@
 "use client"
-import Carousel from "react-material-ui-carousel"
 import { Restaurant, RestaurantsResponse } from "../../interface"
 import { useEffect, useState } from "react"
 import RestaurantCardsGroup from "./RestaurantCardsGroup"
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import useSession from "@/hooks/useSession"
 
 export default function({
     restaurantsResponse,

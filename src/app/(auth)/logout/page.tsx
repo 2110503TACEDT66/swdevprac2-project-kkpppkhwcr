@@ -1,7 +1,6 @@
 "use client"
 import useSession from "@/hooks/useSession";
-import { Button } from "@mui/material";
-import { redirect, useRouter } from "next/navigation";
+import { useRouter } from "next/navigation";
 
 export default function(){
     const {session,deleteSession} = useSession();
