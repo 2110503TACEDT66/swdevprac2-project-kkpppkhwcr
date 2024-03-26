@@ -96,9 +96,12 @@ export default function ({
         .then((res)=>{
             return res.json()
         })
-        const newReservationPeriodsList = restaurantsResponse.data[0].availableReservationPeriod.map((period: Period)=>{
-            return period.startTime+"-"+period.endTime
-        })
+        let newReservationPeriodsList = []
+        if(restaurantsResponse.data!=undefined&&restaurantsResponse.data.length>=1){
+            newReservationPeriodsList = restaurantsResponse.data[0].availableReservationPeriod.map((period: Period)=>{
+                return period.startTime+"-"+period.endTime
+            })
+        }
         setReservationPeriodsList(newReservationPeriodsList)
     }
     return (
