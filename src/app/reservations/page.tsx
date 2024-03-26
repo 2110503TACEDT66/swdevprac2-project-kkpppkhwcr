@@ -42,7 +42,7 @@ export default async function(){
                         <div key={index} className="flex h-fit items-center justify-center gap-3 p-2 rounded-2xl bg-white border-gray border-2 border-solid">
                             <Link 
                                 href={getRestaurantUrl(reservation.restaurantId)}
-                                className="h-full aspect-square"
+                                className="h-[30vw] md:h-[275px] aspect-square"
                             >
                                 <RestaurantImage
                                     alt={reservation.restaurant?.name||""}
