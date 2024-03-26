@@ -21,7 +21,7 @@ export default async function({
     );
     // console.log(restaurants)
     return (
-        <div >
+        <div className="flex flex-col">
             <Typography variant="h3" className="m-2">{makeFirstCharUppercase(tag)} Restaurant</Typography>
             <ClientRestaurantWithTag tag={tag} restaurantsResponse={restaurants}></ClientRestaurantWithTag>
         </div>

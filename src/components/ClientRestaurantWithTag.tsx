@@ -48,7 +48,7 @@ export default function({
     },[])
 
     return (
-        <div className="w-[90%]">
+        <div className="w-[90%] self-center">
             <Slider 
                 // className="w-full h-full" 
                 // autoplay={true} 
