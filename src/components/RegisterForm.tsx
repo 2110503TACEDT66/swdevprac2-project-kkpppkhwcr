@@ -1,10 +1,12 @@
 "use client"
+import useSession from "@/hooks/useSession";
 import { Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, TextField } from "@mui/material";
 import { useFormik } from "formik";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import * as yup from "yup";
 export default function(){
+    const {updateSession} = useSession();
     const [isSubmitting,setIsSubmitting] = useState(false);
     const [isAlerting,setIsAlerting] = useState<boolean>(false);
     const [alertMessages,setAlertMessage] = useState<{
@@ -62,7 +64,9 @@ export default function(){
                 title:"Success!",
                 description: "Successfully registered"
             })
-            router.back();
+            await updateSession(response.token)
+            setSubmitting(false)
+            // router.back();
         }
     })
 
@@ -83,7 +87,12 @@ export default function(){
                     </DialogContentText>
                 </DialogContent>
                 <DialogActions>
-                <Button onClick={()=>setIsAlerting(false)}>Ok</Button>
+                <Button onClick={()=>{
+                    if(alertMessages.title=="Success!"){
+                        router.push("/")
+                    }
+                    setIsAlerting(false)
+                }}>Ok</Button>
                 </DialogActions>
             </Dialog>
             <form  onSubmit={formik.handleSubmit} className="flex flex-col gap-2 w-2/3 sm:w-1/2 bg-white border-solid border-gray border-2 p-2 rounded-2xl top-1/2 transform -translate-y-1/2 absolute">
