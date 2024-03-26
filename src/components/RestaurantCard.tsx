@@ -8,7 +8,7 @@ import { useState } from "react"
 import Skeleton from 'react-loading-skeleton'
 import 'react-loading-skeleton/dist/skeleton.css'
 import useSession from "@/hooks/useSession"
-import { Edit } from "@mui/icons-material"
+import { Delete, Edit } from "@mui/icons-material"
 
 export default function({
     restaurant,
@@ -19,7 +19,8 @@ export default function({
 }){
     const [imgSrc, setImgSrc] = useState(`/api/restaurants/${restaurant.id}/image`);
     const [imageLoaded,setImageLoaded] = useState(false);
-    const session = useSession();
+    const {session} = useSession();
+    const isAdmin = session?.user.role=="admin";
     return (
         <div className={`${className||''} relative md:w-1/4 sm:w-1/3 rounded-2xl p-2 border-solid border-2 border-grey text-black bg-white`}>
             <Link href={`/restaurants/${restaurant.id}`}>
@@ -44,6 +45,7 @@ export default function({
                     sizes={"100vw"}
                     className={`rounded-2xl aspect-square object-cover ${imageLoaded? 'w-full':'w-0 h-0'} `}
                     onError={() => {
+                        // console.log("ggg")
                         setImgSrc(`/img/pure_logo.jpg`);
                     }}
                     onLoad={()=>{
@@ -53,9 +55,16 @@ export default function({
                 <p className={`text-center ${imageLoaded? '':'hidden'}`}>{restaurant.name}</p>
                 <p className={`bg-gray-300 rounded-2xl relative bottom-0 w-fit p-1 px-2 ${imageLoaded? '':'hidden'}`}>{restaurant.openingHours}-{restaurant.closingHours}</p>
             </Link>
-            <Link href={`/restaurants/edit/${restaurant.id}`} className="absolute right-0 top-0">
-                <Edit></Edit>
-            </Link>
+            {
+                isAdmin &&
+                <Link href={`/restaurants/edit/${restaurant.id}`} className="absolute right-0 top-0">
+                    <Edit></Edit>
+                </Link>
+            }
+            {
+                isAdmin &&
+                <Delete className="absolute right-0 bottom-0"></Delete>
+            }
         </div>
     )
 }
