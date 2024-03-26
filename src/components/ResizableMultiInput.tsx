@@ -26,19 +26,24 @@ export default function({
         startTime:"",
         endTime:""
     };
+
     InnerProps=InnerProps||TextField;
     const [textValuesList,setTextValuesList] = useState([initialValue]);
+
     function onAdd(){
         setTextValuesList([...textValuesList,initialValue])
     }
+
     function onDelete(index:number){
         setTextValuesList(removeFromArrayByIndex(textValuesList,index));
     }
+
     function onTextChange(event: ResizableMultiInputEvent,index:number){
         textValuesList[index]=event.currentTarget.value as string|Period
         console.log(event.currentTarget.value)
         onChange(textValuesList);
     }
+    
     return (
         <div>
             <div className="flex flex-row justify-between">

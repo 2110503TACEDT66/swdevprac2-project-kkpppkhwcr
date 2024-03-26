@@ -25,6 +25,7 @@ export default function({
         title:null,
         description:null
     });
+    
     const formik = useFormik({
         initialValues:{
             restaurantName: searchParams.get("restaurantName")||"",
@@ -65,6 +66,7 @@ export default function({
             setIsAlerting(true);
         }
     })
+
     async function onRestaurantNameChange(_e:SyntheticEvent<Element, Event>, value: string|null){
         if(!value || value.trim()==""){
             return
@@ -79,6 +81,7 @@ export default function({
         })
         setRestaurantsList(newRestaurantsList)
     }
+
     async function onReservationPeriodChange(_e:SyntheticEvent<Element, Event>|null, value: string|null,restaurantName?:string|null){
         // console.log(formik.values.restaurantName,"ggg")
         const restaurantsResponse = await fetch(`/api/restaurants?name=${formik.values.restaurantName||restaurantName}&select=availableReservationPeriod`)
@@ -93,6 +96,7 @@ export default function({
         }
         setReservationPeriodsList(newReservationPeriodsList)
     }
+
     return (
         <div className="h-full flex items-center justify-center m-2">
             <Dialog
