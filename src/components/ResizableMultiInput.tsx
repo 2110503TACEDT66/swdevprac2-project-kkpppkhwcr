@@ -49,7 +49,7 @@ export default function({
                 {
                 textValuesList.map((textValue,index)=>{
                     return (
-                        <div key={index} className="ml-10 w-full flex flex-row items-center justify-center gap-2">
+                        <div key={index} className="pl-10 w-full flex flex-row items-center justify-center gap-2">
                             {
                                 InnerProps && <InnerProps
                                     key={index}
