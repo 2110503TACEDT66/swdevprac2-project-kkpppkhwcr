@@ -28,21 +28,21 @@ export default function({
         return index+1
     }
     
-    async function fetchRestaurants(currentIndex: number){
-        if(restaurantsGroup[currentIndex+1]==undefined){
+    async function fetchRestaurants(newIndex: number){
+        if(restaurantsGroup[newIndex]==undefined){
             let oldRestaurantsGroup = Array.from(restaurantsGroup);
             // let restaurantsResponse: RestaurantsResponse = await fetch(`/api/restaurants/?tag=${tag}&page=${index}`)
-            let newRestaurantsResponse: RestaurantsResponse = await fetch(`/api/restaurants/?tag=${tag}&page=${indexToPage(currentIndex+1)}`)
+            let newRestaurantsResponse: RestaurantsResponse = await fetch(`/api/restaurants/?tags[in]=${tag}&page=${indexToPage(newIndex)}`)
             // let newRestaurantsResponse: RestaurantsResponse = await fetch(`/api/restaurants/?page=${indexToPage(currentIndex+1)}`)
             .then((res)=>res.json())
-            oldRestaurantsGroup[currentIndex+1]=newRestaurantsResponse.data;
-            // console.log(newRestaurantsResponse.data)
+            oldRestaurantsGroup[newIndex]=newRestaurantsResponse.data;
+            console.log(newRestaurantsResponse.data)
             setRestaurantsGroup(oldRestaurantsGroup)
         }
     }
 
     useEffect(()=>{
-        fetchRestaurants(0)
+        fetchRestaurants(1)
     },[])
 
     return (
@@ -52,9 +52,9 @@ export default function({
                 // autoplay={true} 
                 // draggable={true}
                 // index={carouselIndex}
-                beforeChange={(prevIndex:number,newIndex:number)=>{
+                beforeChange={async (prevIndex:number,newIndex:number)=>{
                     if (newIndex) setCarouselIndex(newIndex)
-                    fetchRestaurants(newIndex!)
+                    await fetchRestaurants(newIndex!)
                 }}
                 // accessibility={true}
                 // arrows={true}
