@@ -39,7 +39,7 @@ export default async function(){
                 {
                 reservations.map((reservation,index)=>{
                     return (
-                        <div key={index} className="flex h-fit items-center justify-center gap-3 p-2 rounded-2xl bg-white">
+                        <div key={index} className="flex h-fit items-center justify-center gap-3 p-2 rounded-2xl bg-white border-gray border-2 border-solid">
                             <Link 
                                 href={getRestaurantUrl(reservation.restaurantId)}
                                 className="h-full aspect-square"
@@ -78,7 +78,7 @@ export default async function(){
                 }
                 {
                 reservations.length<3 && 
-                <Link href="/reservations/create" className="bg-white hover:bg-[lightblue] text-black hover:text-black p-2 rounded-2xl">
+                <Link href="/reservations/create" className="bg-white hover:bg-[lightblue] text-black hover:text-black p-2 rounded-2xl border-solid border-2 border-gray">
                     reserve now! 
                 </Link>
                 }
