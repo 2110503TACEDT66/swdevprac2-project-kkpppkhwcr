@@ -58,6 +58,11 @@ export default function({
         }
     }
 
+    const iconSx = {
+        stroke: "white",
+        strokeWidth: 1
+    };
+
     return (
         <div className={`${className||''} relative md:w-[250px] sm:w-1/3 rounded-2xl p-2 border-solid border-2 border-grey text-black bg-white`}>
             <Link href={`/restaurants/${restaurant.id}`}>
@@ -99,7 +104,9 @@ export default function({
                         <IconButton
                             className="text-black"
                         >
-                            <Edit></Edit>
+                            <Edit
+                                sx={iconSx}
+                            ></Edit>
                         </IconButton>
                     </Link>
                     <IconButton
@@ -107,10 +114,7 @@ export default function({
                         onClick={deleteRestaurant}
                     >
                         <Delete 
-                        sx={{
-                            stroke: "white",
-                            strokeWidth: 2
-                        }}
+                        sx={iconSx}
                         ></Delete>
                     </IconButton>
                     <div className="absolute left-0 top-0">
@@ -122,10 +126,7 @@ export default function({
                             component="label"
                         >
                             <FileUploadIcon
-                                // sx={{
-                                //     stroke: "white",
-                                //     stroke-width: 2
-                                // }}
+                                sx={iconSx}
                             >
                             </FileUploadIcon>
                             <input
