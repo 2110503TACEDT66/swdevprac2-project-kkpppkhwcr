@@ -49,15 +49,16 @@ export default function({
                 {
                 textValuesList.map((textValue,index)=>{
                     return (
-                        <div key={index} className="w-full flex flex-row items-center justify-center gap-2">
-                            {/* {innerProps.propTypes} */}
-                            <InnerProps
-                                key={index}
-                                className="flex-1 ml-10"
-                                onChange={(e)=>{onTextChange(e,index)}}
-                                label={`${label} ${index+1}`}
-                                helperText={helperTexts==undefined?undefined:helperTexts[index]}
-                            />
+                        <div key={index} className="ml-10 w-full flex flex-row items-center justify-center gap-2">
+                            {
+                                InnerProps && <InnerProps
+                                    key={index}
+                                    className="flex-1"
+                                    onChange={(e)=>{onTextChange(e,index)}}
+                                    label={`${label} ${index+1}`}
+                                    helperText={helperTexts==undefined?undefined:helperTexts[index]}
+                                />
+                            }
                             <DeleteIcon onClick={()=>{onDelete(index)}}/>
                         </div>
                     )
