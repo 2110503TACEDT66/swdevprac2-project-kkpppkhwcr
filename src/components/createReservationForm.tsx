@@ -7,12 +7,14 @@ import { LocalizationProvider } from "@mui/x-date-pickers";
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { Dayjs } from 'dayjs';
 import { Period, Restaurant } from "../../interface";
+import { useSearchParams } from "next/navigation";
 
 export default function({
     token
 }:{
     token: string
 }){
+    const searchParams = useSearchParams();
     const [restaurantsList,setRestaurantsList] = useState<string[]>([]);
     const [reservationPeriodsList,setReservationPeriodsList] = useState<string[]>([]);
     const [isAlerting,setIsAlerting] = useState<boolean>(false);
@@ -25,9 +27,9 @@ export default function({
     });
     const formik = useFormik({
         initialValues:{
-            restaurantName: "",
+            restaurantName: searchParams.get("restaurantName")||"",
             reservationDate: null as (Dayjs|null),
-            reservationPeriod: ""
+            reservationPeriod: searchParams.get("reservationPeriod")||""
         },
         async onSubmit(values,{setSubmitting, setErrors}){
             const {reservationPeriod,...rest} = formik.values
@@ -78,14 +80,17 @@ export default function({
         setRestaurantsList(newRestaurantsList)
     }
     async function onReservationPeriodChange(_e:SyntheticEvent<Element, Event>|null, value: string|null,restaurantName?:string|null){
-        console.log(formik.values.restaurantName)
+        // console.log(formik.values.restaurantName,"ggg")
         const restaurantsResponse = await fetch(`/api/restaurants?name=${formik.values.restaurantName||restaurantName}&select=availableReservationPeriod`)
         .then((res)=>{
             return res.json()
         })
-        const newReservationPeriodsList = restaurantsResponse.data[0].availableReservationPeriod.map((period: Period)=>{
-            return period.startTime+"-"+period.endTime
-        })
+        let newReservationPeriodsList = []
+        if(restaurantsResponse.data!=undefined&&restaurantsResponse.data.length>=1){
+            newReservationPeriodsList = restaurantsResponse.data[0].availableReservationPeriod.map((period: Period)=>{
+                return period.startTime+"-"+period.endTime
+            })
+        }
         setReservationPeriodsList(newReservationPeriodsList)
     }
     return (

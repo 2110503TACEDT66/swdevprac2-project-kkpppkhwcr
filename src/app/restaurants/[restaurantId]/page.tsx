@@ -2,7 +2,7 @@
 
 import { Restaurant, RestaurantResponse } from "@/../interface"
 import { notFound } from "next/navigation"
-import { ListItemButton,ListItemText, Typography  } from "@mui/material"
+import { List, ListItem, ListItemButton,ListItemText, Typography  } from "@mui/material"
 import getRestaurant from "@/utils/getRestaurant"
 import RestaurantImage from "@/components/RestaurantImage"
 
@@ -39,24 +39,48 @@ export default async function({
                 </div>
                 <div className="self-center m-2 flex flex-col gap-2">
                     <Typography variant="h2">{restaurant.name}</Typography>
+
                     <Typography variant="h5">Address</Typography>
                     <Typography variant="h6" className="ml-3">{restaurant.address}</Typography>
+
                     <Typography variant="h5">Open Hours</Typography>
                     <Typography variant="h6" className="ml-3">{restaurant.openingHours}-{restaurant.closingHours}</Typography>
-                    <Typography variant="h5">Available Reservation Periods</Typography>
-                    <ListItemButton 
-                        component="a" 
-                        href=""
-                    >
+
+                    <Typography variant="h5">Menus</Typography>
+                    <List>
+                    
                     {
-                        restaurant.availableReservationPeriod.map(({startTime,endTime},index)=>{
+                        restaurant.menu.map((menu,index)=>{
                             return (
-                                <ListItemText key={index} primary={`${startTime}-${endTime}`} />
+                                <ListItem key={index}>
+                                    <ListItemText primary={menu}></ListItemText>
+                                </ListItem>
                             )
                         })
                     }
-                    </ListItemButton>
+                    </List>
 
+                    <Typography variant="h5">Available Reservation Periods</Typography>
+                    <List>
+                    {
+                        restaurant.availableReservationPeriod.map(({startTime,endTime},index)=>{
+                            const periodString = `${startTime}-${endTime}`;
+                            const searchParams = new URLSearchParams({
+                                restaurantName:restaurant.name,
+                                reservationPeriod: periodString
+                            })
+                            return (
+                                <ListItemButton 
+                                    key={index}
+                                    component="a" 
+                                    href={`/reservations/create?${searchParams.toString()}`}
+                                >
+                                    <ListItemText key={index} primary={periodString} />
+                                </ListItemButton>
+                            )
+                        })
+                    }
+                    </List>
                 </div>
             </div>
         </main>
