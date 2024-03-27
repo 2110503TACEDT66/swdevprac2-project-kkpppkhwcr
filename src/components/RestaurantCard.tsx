@@ -81,7 +81,7 @@ export default function({
                 }
                 <Image
                     alt={restaurant.name}
-                    src={imgSrc}
+                    src={imgSrc+"?time="+new Date().getTime()}
                     width={250}
                     height={250}
                     sizes={"100vw"}
